@@ -1,29 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helm-arc
+  name: runner-deploy-app
   namespace: argocd
   finalizers:
   - resources-finalizer.argocd.argoproj.io
   annotations:
-     argocd.argoproj.io/sync-wave: "5"
+     argocd.argoproj.io/sync-wave: "10"
 spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: {{ .Values.spec.namespace }}
   project: default
   source:
-    path: helm-arc
+    path: runner-deploy
     repoURL: https://github.com/squoc/arc-deploy
     targetRevision: HEAD
-    helm:
-      releaseName: "{{ .Values.spec.namespace }}-system"
-      valueFiles:
-        - values.yaml
+      #helm:
+      #releaseName: "{{ .Values.spec.namespace }}-system"
+      #valueFiles:
+      #  - values.yaml
     syncPolicy:
-      syncOptions:
-      #- CreateNamespace=true
-      - Replace=true
       automated:
         selfHeal: true
         prune: true
