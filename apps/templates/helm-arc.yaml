@@ -22,7 +22,6 @@ spec:
         - values.yaml
     syncPolicy:
       syncOptions:
-      #- CreateNamespace=true
       - Replace=true
       automated:
         selfHeal: true
