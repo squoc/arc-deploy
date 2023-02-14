@@ -20,8 +20,11 @@ spec:
       #releaseName: "{{ .Values.spec.namespace }}-system"
       #valueFiles:
       #  - values.yaml
-    syncPolicy:
-      automated:
-        selfHeal: true
-        prune: true
+  syncPolicy:
+    syncOptions:
+    - Replace=true
+    - ServerSideApply=true
+    automated:
+      selfHeal: true
+      prune: true
 
